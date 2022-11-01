@@ -11,7 +11,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        ProjectController projectController = new ProjectController();
+//        ProjectController projectController = new ProjectController();
         
 //        Project project = new Project();
 //        project.setName("Teste 2");
@@ -32,28 +32,28 @@ public class App {
 //        List<Project> projects = projectController.getAll();
 //        System.out.println("Total de projetos: " + projects.size());
 //        
-        TaskController taskController = new TaskController();
-
-        Task task = new Task();
-        
-        
-        task.setIdProject(8);
-        task.setId(17);
-        task.setName("New Name");
-        task.setDescription("New Description");
-        task.setNotes("New Notes ");
-        task.setDeadline(new Date());
-        
-        taskController.update(task);
+//        TaskController taskController = new TaskController();
+//
+//        Task task = new Task();
+//        
+//        
+//        task.setIdProject(8);
+//        task.setId(17);
+//        task.setName("New Name");
+//        task.setDescription("New Description");
+//        task.setNotes("New Notes ");
+//        task.setDeadline(new Date());
+//        
+//        taskController.update(task);
 //
 //        taskController.save(task);
           
 //
         
 //        
-        List<Task> tasks = taskController.getAll(8);
-        taskController.update(task);
-        System.out.println("Total de tarefas = " + tasks.size());
+//        List<Task> tasks = taskController.getAll(8);
+//        taskController.update(task);
+//        System.out.println("Total de tarefas = " + tasks.size());
 
     }
 
