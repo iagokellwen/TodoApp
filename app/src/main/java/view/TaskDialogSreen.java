@@ -94,6 +94,7 @@ public class TaskDialogSreen extends javax.swing.JDialog {
         jLabelName.setText("Nome");
 
         jTextFieldName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextFieldName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNameActionPerformed(evt);
@@ -106,6 +107,7 @@ public class TaskDialogSreen extends javax.swing.JDialog {
         jTextAreaDescription.setColumns(20);
         jTextAreaDescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextAreaDescription.setRows(5);
+        jTextAreaDescription.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPaneDescription.setViewportView(jTextAreaDescription);
 
         jLabelDeadLine.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
