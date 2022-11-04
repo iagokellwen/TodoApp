@@ -16,14 +16,14 @@ import model.Task;
  * @author iago
  */
 public class TaskDialogSreen extends javax.swing.JDialog {
-    
+
     TaskController controller;
     Project project;
-    
+
     public TaskDialogSreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         controller = new TaskController();
     }
 
@@ -193,25 +193,25 @@ public class TaskDialogSreen extends javax.swing.JDialog {
 
     private void jLabelTooBarSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTooBarSaveMouseClicked
         // TODO add your handling code here:
-        
+
         try {
             Task task = new Task();
-            
-            task.setIdProject(9);
-            
+
+            task.setIdProject(project.getId());
+
             task.setName(jTextFieldName.getText());
             task.setDescription(jTextAreaDescription.getText());
             task.setNotes(jTextAreaNotes.getText());
             task.setIsCompleted(false);
-            
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yy");
             Date deadLine = null;
             deadLine = dateFormat.parse(jFormattedTextFieldDeadLine.getText());
             task.setDeadline(deadLine);
             controller.save(task);
-            
+
             JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -280,7 +280,5 @@ public class TaskDialogSreen extends javax.swing.JDialog {
     public void setProject(Project project) {
         this.project = project;
     }
-
-    
 
 }
