@@ -15,6 +15,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import model.Project;
 import model.Task;
+import util.ButtonColumnCellRederer;
+import util.DeadLineColumnCellRederer;
 import util.TaskTableModel;
 
 /**
@@ -31,10 +33,11 @@ public class MainScreen extends javax.swing.JFrame {
 
     public MainScreen() {
         initComponents();
-        decorateTableTask();
 
         initDataController();
         initComponetsModel();
+
+        decorateTableTask();
 
     }
 
@@ -243,6 +246,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
         jTableTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -283,16 +287,7 @@ public class MainScreen extends javax.swing.JFrame {
         });
         jScrollPaneTasks.setViewportView(jTableTasks);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneTasks, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneTasks)
-        );
+        jPanel5.add(jScrollPaneTasks, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -352,6 +347,17 @@ public class MainScreen extends javax.swing.JFrame {
         taskDialogSreen.setProject(project);
 
         taskDialogSreen.setVisible(true);
+
+        taskDialogSreen.addWindowListener(new WindowAdapter() {
+            public void windowclosed(WindowEvent e) {
+
+                int projectIndex = jList1Projects.getSelectedIndex();
+                Project project = (Project) projectsModel.get(projectIndex);
+                loadTasks(project.getId());
+
+            }
+
+        });
     }//GEN-LAST:event_jLabelTasksAddMouseClicked
 
     private void jTableTasksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTasksMouseClicked
@@ -359,12 +365,24 @@ public class MainScreen extends javax.swing.JFrame {
 
         int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
         int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
+        Task task = taskModel.getTasks().get(rowIndex);
 
         switch (columnIndex) {
             case 3:
-                Task task = taskModel.getTasks().get(rowIndex);
                 taskController.update(task);
                 break;
+            case 4:
+                break;
+            case 5:
+                taskController.removeById(task.getId());
+                taskModel.getTasks().remove(task);
+
+                int projectIndex = jList1Projects.getSelectedIndex();
+                Project project = (Project) projectsModel.get(projectIndex);
+                loadTasks(project.getId());
+
+                break;
+
         }
     }//GEN-LAST:event_jTableTasksMouseClicked
 
@@ -441,8 +459,15 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
         jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
 
-        //Criando um sort automático para as colunas da table
-        jTableTasks.setAutoCreateRowSorter(true);
+        jTableTasks.getColumnModel().getColumn(2)
+                .setCellRenderer(new DeadLineColumnCellRederer());
+
+        jTableTasks.getColumnModel().getColumn(4).setCellRenderer(
+                new ButtonColumnCellRederer("edit"));
+
+        jTableTasks.getColumnModel().getColumn(5).setCellRenderer(
+                new ButtonColumnCellRederer("delete"));
+
     }
 
     public void initDataController() {
